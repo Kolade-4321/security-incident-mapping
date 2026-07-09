@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Incident Mapping (SIM)</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+        body{
+            background:#f4f4f4;
+        }
+        header{
+            background:#1f2937;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+        header h1{
+            margin-bottom:8px;
+        }
+        .container{
+            width:90%;
+            max-width:1000px;
+            margin:30px auto;
+            display:flex;
+            gap:20px;
+        }
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:8px;
+            box-shadow:0 0 8px rgba(0,0,0,0.1);
+        }
+        .left{
+            flex:1;
+        }
+        .right{
+            flex:1.2;
+        }
+        h2{
+            margin-bottom:15px;
+            color:#333;
+        }
+        label{
+            display:block;
+            margin-top:12px;
+            margin-bottom:5px;
+            font-weight:bold;
+        }
+        input,
+        select,
+        textarea{
+            width:100%;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+        textarea{
+            resize:none;
+        }
+        button{
+            width:100%;
+            margin-top:15px;
+            padding:12px;
+            background:#d62828;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+        button:hover{
+            background:#b51717;
+        }
+        #reports{
+            max-height:500px;
+            overflow-y:auto;
+        }
+        .report{
+            background:#fafafa;
+            border-left:5px solid red;
+            padding:12px;
+            margin-bottom:15px;
+            border-radius:5px;
+        }
+        .report h3{
+            color:#d62828;
+            margin-bottom:8px;
+        }
+        .report small{
+            color:gray;
+        }
+        @media(max-width:768px){
+
+            .container{
+                flex-direction:column;
+            }
+
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Security Incident Mapping (SIM)</h1>
+    <p>Anonymous Crime Reporting Platform</p>
+</header>
+<div class="container">
+    <div class="card left">
+        <h2>Report an Incident</h2>
+        <form id="reportForm">
+            <label>Crime Type</label>
+            <select id="crimeType" required>
+                <option value="">Select Crime</option>
+                <option>Murder</option>
+                <option>Stabbing</option>
+                <option>Rape</option>
+                <option>Theft</option>
+            </select>
+            <label>Location</label>
+            <input
+                type="text"
+                id="location"
+                placeholder="Enter location"
+                required>
+            <label>Description</label>
+            <textarea
+                id="details"
+                rows="5"
+                placeholder="Describe what happened..."
+                required></textarea>
+            <button type="submit">
+                Submit Report
+            </button>
+        </form>
+    </div>
+    <div class="card right">
+        <h2>Live Incident Feed</h2>
+        <div id="reports">
+            <div class="report">
+                <h3>Theft</h3>
+                <p><strong>Location:</strong> Grace Villa</p>
+                <p>A student's laptop was stolen from the hostel.</p>
+                <small>5 hours ago</small>
+            </div>
+            <div class="report">
+                <h3>Stabbing</h3>
+                <p><strong>Location:</strong> School Gate</p>
+                <p>A fight broke out near the school gate.</p>
+                <small>Yesterday</small>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+document.getElementById("reportForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    let type = document.getElementById("crimeType").value;
+    let location = document.getElementById("location").value;
+    let details = document.getElementById("details").value;
+    let report = document.createElement("div");
+    report.className = "report";
+    report.innerHTML = `
+        <h3>${type}</h3>
+        <p><strong>Location:</strong> ${location}</p>
+        <p>${details}</p>
+        <small>Just Now</small>
+    `;
+    document.getElementById("reports").prepend(report);
+    this.reset();
+    alert("Incident reported successfully!");
+});
+</script>
+</body>
+</html>
